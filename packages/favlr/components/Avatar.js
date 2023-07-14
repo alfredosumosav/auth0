@@ -1,6 +1,12 @@
+import { useUser } from "@auth0/nextjs-auth0/client";
+
 const Avatar = () => {
-  const name = "John Doe";
-  const picture = `https://ui-avatars.com/api/?name=${name}`;
+  const { user } = useUser();
+
+  if (!user) return null;
+
+  const name = user.name || user.nickname || user.email;
+  const picture = user.picture || `https://ui-avatars.com/api/?name=${name}`;
 
   return (
     <div className="flex items-center mx-2">
